@@ -71,8 +71,29 @@ const getUserProfile: RequestHandler = (req: any, res) => {
   return res.status(200).json(req.user);
 };
 
-const updateUserProfile: RequestHandler = (req, res) => {
-  return res.status(200).json({ message: "update user profile" });
+const updateUserProfile: RequestHandler = async (req: any, res) => {
+  const { name, email, password } = req.body;
+
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = name || user.name;
+    user.email = email || user.email;
+
+    if (password?.trim()) {
+      user.password = password;
+    }
+
+    const updatedUser = await user.save();
+
+    return res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+    });
+  } else {
+    return res.status(404).json({ message: "User not found" });
+  }
 };
 
 export {
