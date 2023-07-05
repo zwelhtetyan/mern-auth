@@ -30,8 +30,32 @@ const registerUser: RequestHandler = async (req, res) => {
   return res.status(200).json(responseUser);
 };
 
-const authUser: RequestHandler = (req, res) => {
-  return res.status(200).json({ message: "auth user" });
+const authUser: RequestHandler = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email?.trim() || !password?.trim()) {
+    return res.status(400).json({ message: "Invalid data" });
+  }
+
+  const userExit = await User.findOne({ email });
+
+  if (!userExit) return res.status(401).json({ message: "User not found!" });
+
+  const correctPassword = await bcrypt.compare(password, userExit.password);
+
+  if (correctPassword) {
+    generateToken(res, userExit.id);
+
+    const responseUser = {
+      _id: userExit._id,
+      name: userExit.name,
+      email: userExit.email,
+    };
+
+    return res.status(200).json(responseUser);
+  } else {
+    return res.status(401).json({ message: "something went wrong" });
+  }
 };
 
 const logoutUser: RequestHandler = (req, res) => {
