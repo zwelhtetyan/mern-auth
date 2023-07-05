@@ -68,7 +68,7 @@ const logoutUser: RequestHandler = (req, res) => {
 };
 
 const getUserProfile: RequestHandler = (req: any, res) => {
-  return res.status(200).json({ message: "user profile" });
+  return res.status(200).json(req.user);
 };
 
 const updateUserProfile: RequestHandler = (req, res) => {
