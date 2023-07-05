@@ -81,7 +81,8 @@ const updateUserProfile: RequestHandler = async (req: any, res) => {
     user.email = email || user.email;
 
     if (password?.trim()) {
-      user.password = password;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
     }
 
     const updatedUser = await user.save();
