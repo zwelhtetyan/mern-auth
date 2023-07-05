@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import bcrypt from "bcrypt";
 import { User } from "../../models/user.model";
+import { generateToken } from "../../utils/generateToken";
 
 const registerUser: RequestHandler = async (req, res) => {
   const { name, email, password } = req.body;
@@ -18,6 +19,7 @@ const registerUser: RequestHandler = async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const newUser = await User.create({ name, email, password: hashedPassword });
+  generateToken(res, newUser._id);
 
   const responseUser = {
     _id: newUser._id,
