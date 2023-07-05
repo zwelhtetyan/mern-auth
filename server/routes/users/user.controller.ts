@@ -67,7 +67,7 @@ const logoutUser: RequestHandler = (req, res) => {
   return res.status(200).json({ message: "user logged out" });
 };
 
-const getUserProfile: RequestHandler = (req, res) => {
+const getUserProfile: RequestHandler = (req: any, res) => {
   return res.status(200).json({ message: "user profile" });
 };
 

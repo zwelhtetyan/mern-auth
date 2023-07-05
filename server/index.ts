@@ -4,11 +4,13 @@ import express, { Request, Response } from "express";
 import userRouter from "./routes/users/user.route";
 import { errorHandler, notFound } from "./middleware/error.middleware";
 import { connectMongo } from "./lib/mongo";
+import cookieParser from "cookie-parser";
 
 const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 app.get("/", (req: Request, res: Response) => res.send("HI"));
 
