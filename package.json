@@ -11,10 +11,10 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "commit": "cz"
   },
-  "keywords": [], 
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "dependencies": {   
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
