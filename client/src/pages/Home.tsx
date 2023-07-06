@@ -1,8 +1,9 @@
 import Hero from "../components/Hero";
+import { useAppSelector } from "../hooks/redux";
 import Profile from "./Profile";
 
 export default function Home() {
-  const a = true;
+  const { userInfo } = useAppSelector((state) => state.auth);
 
-  return <>{a ? <Profile /> : <Hero />}</>;
+  return <>{userInfo ? <Profile /> : <Hero />}</>;
 }
