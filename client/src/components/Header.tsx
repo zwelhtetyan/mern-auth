@@ -7,8 +7,6 @@ import { useAppSelector } from "../hooks/redux";
 export default function Header() {
   const { userInfo } = useAppSelector((state) => state.auth);
 
-  console.log(userInfo);
-
   return (
     <Navbar bg="dark" data-bs-theme="dark">
       <Container className="w-75">

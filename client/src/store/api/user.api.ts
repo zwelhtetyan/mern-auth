@@ -6,6 +6,13 @@ interface LoginState {
   password: string;
 }
 
+interface UpdateProfileState {
+  name: string;
+  email: string;
+  oldPassword: string;
+  newPassword: string;
+}
+
 export const userEndpoint = ROOT_API.injectEndpoints({
   endpoints: (builder) => ({
     register: builder.mutation({
@@ -25,9 +32,9 @@ export const userEndpoint = ROOT_API.injectEndpoints({
     }),
 
     updateProfile: builder.mutation({
-      query: (data) => ({
+      query: (data: UpdateProfileState) => ({
         url: `${USER_URL}/profile`,
-        method: "POST",
+        method: "PUT",
         body: data,
       }),
     }),

@@ -33,8 +33,6 @@ const registerUser: RequestHandler = async (req, res) => {
 const authUser: RequestHandler = async (req, res) => {
   const { email, password } = req.body;
 
-  console.log(req.body);
-
   if (!email?.trim() || !password?.trim()) {
     return res.status(400).json({ message: "Invalid data" });
   }
@@ -74,26 +72,47 @@ const getUserProfile: RequestHandler = (req: any, res) => {
 };
 
 const updateUserProfile: RequestHandler = async (req: any, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, oldPassword, newPassword } = req.body;
+
+  if (!name.trim() || !email.trim()) {
+    return res.status(401).json({ message: "Invalid data" });
+  }
 
   const user = await User.findById(req.user._id);
 
   if (user) {
-    user.name = name || user.name;
-    user.email = email || user.email;
+    user.name = name;
+    user.email = email;
 
-    if (password?.trim()) {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      user.password = hashedPassword;
+    if (oldPassword?.trim() && newPassword.trim()) {
+      const correctOldPassword = await bcrypt.compare(
+        oldPassword,
+        user.password
+      );
+
+      if (correctOldPassword) {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword;
+
+        const updatedUser = await user.save();
+
+        return res.status(200).json({
+          _id: updatedUser._id,
+          name: updatedUser.name,
+          email: updatedUser.email,
+        });
+      } else {
+        return res.status(401).json({ message: "Incorrect Old password" });
+      }
+    } else {
+      const updatedUser = await user.save();
+
+      return res.status(200).json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+      });
     }
-
-    const updatedUser = await user.save();
-
-    return res.status(200).json({
-      _id: updatedUser._id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-    });
   } else {
     return res.status(404).json({ message: "User not found" });
   }

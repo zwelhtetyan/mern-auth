@@ -4,12 +4,15 @@ import { ToastContainer, toast } from "react-toastify";
 import { useLoginMutation } from "../store/api/user.api";
 import { setUser } from "../store/slices/auth.slice";
 import { useAppDispatch } from "../hooks/redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const [login, { isLoading }] = useLoginMutation();
+
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -26,6 +29,7 @@ export default function Login() {
       const user = await login({ email, password }).unwrap();
       dispatch(setUser(user));
       toast.success("Successfully login");
+      navigate("/");
     } catch (err: any) {
       console.log(err);
       toast.error(err.data.message);
