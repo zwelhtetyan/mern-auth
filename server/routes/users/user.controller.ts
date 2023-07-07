@@ -58,15 +58,6 @@ const authUser: RequestHandler = async (req, res) => {
   }
 };
 
-const logoutUser: RequestHandler = (req, res) => {
-  res.cookie("token", "", {
-    httpOnly: true,
-    expires: new Date(0),
-  });
-
-  return res.status(200).json({ message: "user logged out" });
-};
-
 const getUserProfile: RequestHandler = (req: any, res) => {
   return res.status(200).json(req.user);
 };
@@ -116,6 +107,15 @@ const updateUserProfile: RequestHandler = async (req: any, res) => {
   } else {
     return res.status(404).json({ message: "User not found" });
   }
+};
+
+const logoutUser: RequestHandler = (req, res) => {
+  res.cookie("token", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  return res.status(200).json({ message: "user logged out" });
 };
 
 export {

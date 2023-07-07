@@ -4,6 +4,7 @@ import { useRegisterMutation } from "../store/api/user.api";
 import { ToastContainer, toast } from "react-toastify";
 import { setUser } from "../store/slices/auth.slice";
 import { useAppDispatch } from "../hooks/redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const nameRef = useRef<HTMLInputElement>(null);
@@ -13,6 +14,7 @@ export default function Register() {
 
   const [register, { isLoading }] = useRegisterMutation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,8 +33,6 @@ export default function Register() {
       return toast.error("Invalid data");
     }
 
-    console.log({ name, email, password, confirmPassword });
-
     if (password.trim() !== confirmPassword.trim()) {
       return toast.error("No matching password");
     }
@@ -41,12 +41,11 @@ export default function Register() {
       const newUser = await register({ name, email, password }).unwrap();
       dispatch(setUser(newUser));
       toast.success("Registered successfully!");
+      navigate("/");
     } catch (err: any) {
       console.log(err);
       toast.error(err.data.message);
     }
-
-    console.log({ name, email, password, confirmPassword });
   };
 
   return (
