@@ -9,7 +9,7 @@ interface LoginState {
 export const userEndpoint = ROOT_API.injectEndpoints({
   endpoints: (builder) => ({
     register: builder.mutation({
-      query: (data) => ({
+      query: (data: LoginState & { name: string }) => ({
         url: USER_URL,
         method: "POST",
         body: data,

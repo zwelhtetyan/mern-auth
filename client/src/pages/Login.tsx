@@ -3,12 +3,15 @@ import { Button, Form } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import { useLoginMutation } from "../store/api/user.api";
 import { setUser } from "../store/slices/auth.slice";
+import { useAppDispatch } from "../hooks/redux";
 
 export default function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const [login, { isLoading }] = useLoginMutation();
+
+  const dispatch = useAppDispatch();
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,7 +24,8 @@ export default function Login() {
 
     try {
       const user = await login({ email, password }).unwrap();
-      setUser(user);
+      dispatch(setUser(user));
+      toast.success("Successfully login");
     } catch (err: any) {
       console.log(err);
       toast.error(err.data.message);
