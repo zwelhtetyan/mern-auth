@@ -66,7 +66,7 @@ export default function Register() {
           </Form.Text>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
             ref={passwordRef}
@@ -75,7 +75,7 @@ export default function Register() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword1">
+        <Form.Group className="mb-3">
           <Form.Label>Confirm password</Form.Label>
           <Form.Control
             ref={confirmPasswordRef}
