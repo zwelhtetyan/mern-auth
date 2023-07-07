@@ -33,6 +33,8 @@ const registerUser: RequestHandler = async (req, res) => {
 const authUser: RequestHandler = async (req, res) => {
   const { email, password } = req.body;
 
+  console.log(req.body);
+
   if (!email?.trim() || !password?.trim()) {
     return res.status(400).json({ message: "Invalid data" });
   }

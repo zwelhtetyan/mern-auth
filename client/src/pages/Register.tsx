@@ -21,7 +21,7 @@ export default function Register() {
         <Form.Control type="password" placeholder="Password" />
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
+      <Form.Group className="mb-3" controlId="formBasicPassword1">
         <Form.Label>Confirm password</Form.Label>
         <Form.Control type="password" placeholder="Confirm Password" />
       </Form.Group>

@@ -1,6 +1,11 @@
 import { ROOT_API } from ".";
 const USER_URL = "/api/users";
 
+interface LoginState {
+  email: string;
+  password: string;
+}
+
 export const userEndpoint = ROOT_API.injectEndpoints({
   endpoints: (builder) => ({
     register: builder.mutation({
@@ -12,7 +17,7 @@ export const userEndpoint = ROOT_API.injectEndpoints({
     }),
 
     login: builder.mutation({
-      query: (data) => ({
+      query: (data: LoginState) => ({
         url: `${USER_URL}/auth`,
         method: "POST",
         body: data,
