@@ -1,7 +1,7 @@
 import { ROOT_API } from ".";
 const USER_URL = "/api/users";
 
-const user = ROOT_API.injectEndpoints({
+export const userEndpoint = ROOT_API.injectEndpoints({
   endpoints: (builder) => ({
     register: builder.mutation({
       query: (data) => ({
@@ -41,4 +41,4 @@ export const {
   useLoginMutation,
   useUpdateProfileMutation,
   useLogoutMutation,
-} = user;
+} = userEndpoint;

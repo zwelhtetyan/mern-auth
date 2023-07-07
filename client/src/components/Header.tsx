@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <Navbar bg="dark" data-bs-theme="dark">
       <Container className="w-75">
-        <Navbar.Brand href="/">
+        <Navbar.Brand as="p" className="mb-0">
           <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
             MERN Auth 🔑
           </Link>
@@ -15,7 +15,7 @@ export default function Header() {
 
         <div>
           <Nav className="me-auto">
-            <Nav.Link>
+            <Nav.Link as="p" className="mb-0">
               <Link
                 to="/login"
                 style={{ color: "inherit", textDecoration: "none" }}
@@ -24,7 +24,7 @@ export default function Header() {
               </Link>
             </Nav.Link>
 
-            <Nav.Link>
+            <Nav.Link as="p" className="mb-0">
               <Link
                 to="/register"
                 style={{ color: "inherit", textDecoration: "none" }}

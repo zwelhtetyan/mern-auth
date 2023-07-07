@@ -1,4 +1,5 @@
 import { Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
@@ -12,12 +13,17 @@ export default function Hero() {
       </p>
 
       <div className="d-flex justify-content-center">
-        <Button variant="primary" href="/login" className="me-2">
-          Login
-        </Button>
-        <Button variant="secondary" href="/register">
-          Register
-        </Button>
+        <Link to="/login">
+          <Button variant="primary" className="me-2" as="button">
+            Login
+          </Button>
+        </Link>
+
+        <Link to="/register">
+          <Button variant="secondary" as="button">
+            Register
+          </Button>
+        </Link>
       </div>
     </Card>
   );
